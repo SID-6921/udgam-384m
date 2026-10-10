@@ -1,0 +1,18 @@
+/* Page-specific additions to the shared walkthrough styles (site.css). Same palette and type. */
+.example-controls{display:grid;grid-template-columns:repeat(3,1fr)}
+.example-controls button{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.example-controls button:nth-child(3n){border-right:0}
+.example-controls button:nth-last-child(-n+3){border-bottom:0}
+.examples-method{margin-top:18px;max-width:900px}
+.compare tbody td:last-child{font-weight:400;color:inherit}
+.compare tbody td:nth-child(2){color:var(--green)}
+.compare b{font-weight:700}
+.compare th:not(:first-child){white-space:nowrap}
+@media(max-width:760px){
+  .example-controls{grid-template-columns:repeat(2,1fr)}
+  .example-controls button:nth-child(3n){border-right:1px solid var(--line)}
+  .example-controls button:nth-child(2n){border-right:0}
+  .example-controls button:nth-last-child(-n+3){border-bottom:1px solid var(--line)}
+  .example-controls button:nth-last-child(-n+2){border-bottom:0}
+  .compare{min-width:640px}
+}

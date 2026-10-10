@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<!--
+Public release walkthrough for Udgam-384M, for ordinary readers and developers.
+Same design system as the Hinglish Commands walkthrough. All examples are recorded model replies;
+no model, form submission or network request runs on this page.
+-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Udgam-384M: a 384M-parameter English model for on-device tool calling, trained from scratch by Udgam Labs. Recorded examples, honest benchmarks and developer setup.">
+  <meta name="theme-color" content="#0b6448">
+  <title>Udgam-384M — Udgam Labs</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/udgam-384m.css">
+  <script src="assets/recorded-examples.js" defer></script>
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="release-note">Public release · 10 October 2026 <span aria-hidden="true">/</span> Recorded examples. Measured results. Known limitations.</div>
+  <header class="site-header shell">
+    <a class="wordmark" href="https://github.com/UdgamLabs" aria-label="Udgam Labs on GitHub">UDGAM LABS<span>Frontier technology lab · India</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#examples">Examples</a>
+      <a href="#benchmarks">The evidence</a>
+      <a href="#build">Build with it <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Udgam-384M / Trained from scratch</p>
+        <h1 id="hero-title">Small enough for the device.<br><em>Built for your app’s tools.</em></h1>
+        <p class="lead">A 384M-parameter English model that turns requests into function calls, documents into JSON and tasks into shell commands for review, and knows when to ask or decline.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#examples">Explore recorded examples <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#build">Developer quickstart <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero-foot">Open weights under Apache-2.0. 238 MB at 4-bit.<br>Runs in Ollama, LM Studio, llama.cpp, MLX and transformers.</p>
+      </div>
+      <div class="hero-specimen" aria-label="A recorded request and the tool call the model returned">
+        <div class="specimen-top"><span>One request, one call</span><span class="record-label">Recorded</span></div>
+        <p class="specimen-input">“Wake me up at 6:45 <br>tomorrow, label it gym.”</p>
+        <div class="specimen-rule"><span>Returned by the model</span><span aria-hidden="true">↓</span></div>
+        <dl class="specimen-fields">
+          <div><dt>Tool</dt><dd>set_alarm</dd></div>
+          <div><dt>time</dt><dd>06:45</dd></div>
+          <div><dt>label</dt><dd>Gym</dd></div>
+        </dl>
+        <p class="specimen-foot">Your app checks the call and sets the alarm.<br>The model takes no action by itself.</p>
+        <span class="specimen-id">Ollama · Q8_0 · thinking off</span>
+      </div>
+    </section>
+
+    <section class="scope-strip shell" aria-label="The four jobs">
+      <p>One small model. <br><strong>Four jobs.</strong></p>
+      <ul><li>App actions</li><li>Document → JSON</li><li>Shell commands for review</li><li>Relevance: ask or decline</li></ul>
+    </section>
+
+    <section id="examples" class="examples-section section shell" aria-labelledby="examples-title">
+      <div class="section-heading">
+        <p class="eyebrow">01 / What happens</p>
+        <h2 id="examples-title">See what the model returns.</h2>
+        <p>Choose a saved example. See what the model decided, then inspect the exact output, including a case where it gets the answer wrong.</p>
+      </div>
+      <div class="recording-notice"><span class="record-dot" aria-hidden="true"></span><strong>Recorded replies.</strong> This page does not run a model or accept new requests.</div>
+      <div class="example-controls" role="group" aria-label="Choose a recorded example">
+        <button type="button" data-example="0" aria-pressed="true">01 <span>An app action</span></button>
+        <button type="button" data-example="1" aria-pressed="false">02 <span>A missing detail</span></button>
+        <button type="button" data-example="2" aria-pressed="false">03 <span>No tool fits</span></button>
+        <button type="button" data-example="3" aria-pressed="false">04 <span>Document to JSON</span></button>
+        <button type="button" data-example="4" aria-pressed="false">05 <span>A shell command</span></button>
+        <button type="button" data-example="5" aria-pressed="false">06 <span>A real mistake</span></button>
+      </div>
+      <div class="example-stage">
+        <div class="example-input">
+          <p id="example-job" class="eyebrow">The request · App action</p>
+          <blockquote id="example-text">Wake me up at 6:45 tomorrow, label it gym.</blockquote>
+          <div class="example-reading">
+            <p id="example-outcome" class="outcome">Calls the right tool</p>
+            <p id="example-explanation">The model picks set_alarm from the three offered tools and fills both arguments in the format the schema asks for.</p>
+          </div>
+        </div>
+        <div class="example-output">
+          <div class="output-heading">
+            <span class="eyebrow">The model’s decision</span>
+            <div class="view-switch" role="group" aria-label="Output format">
+              <button type="button" data-view="plain" aria-pressed="true">Plain language</button>
+              <button type="button" data-view="json" aria-pressed="false">Raw output</button>
+            </div>
+          </div>
+          <div id="plain-view">
+            <div class="intent-block"><span>Decision</span><strong id="example-intent">Call a tool</strong></div>
+            <dl id="example-fields" class="output-fields"><div><dt>Tool</dt><dd>set_alarm</dd></div><div><dt>time</dt><dd>06:45</dd></div><div><dt>label</dt><dd>Gym</dd></div></dl>
+            <p class="small muted">Plain-language labels explain the saved output. They are not additional model predictions.</p>
+          </div>
+          <div id="json-view" hidden>
+            <p class="small muted">The saved reply as the runtime returned it (parsed tool calls or text). Long text is shortened with “…”.</p>
+            <pre tabindex="0" aria-label="Recorded output"><code id="example-json"></code></pre>
+          </div>
+          <p id="example-application" class="application-note">Your app checks the call, sets the alarm and sends the result back.</p>
+        </div>
+      </div>
+      <p class="small muted examples-method">Recorded on 10 October 2026 from the released Q8_0 file at temperature 0.1 with thinking off, using the scripts in the repository’s <a href="https://github.com/UdgamLabs/udgam-384m/tree/main/examples">examples</a>. Examples 01–03 offered three tools: set_alarm, send_message and get_weather. They show typical behaviour, not a representative sample. On tools it has never seen, about one call in three is exactly right.</p>
+      <p id="example-announcement" class="sr-only" aria-live="polite"></p>
+      <noscript><p>The app-action example is shown above. Enable JavaScript to switch saved examples; no network access is used.</p></noscript>
+    </section>
+
+    <section class="app-section" aria-labelledby="app-title">
+      <div class="shell app-layout">
+        <div><p class="eyebrow">Inside an application</p><h2 id="app-title">The model proposes. <br>Your app decides.</h2></div>
+        <div>
+          <ol class="app-flow">
+            <li><span class="step-number">1</span><div><h3>Your app offers its tools.</h3><p>Send the request with the tools the person may use right now, plus the current date-time and device in the system message so “tomorrow” resolves correctly.</p></div></li>
+            <li><span class="step-number">2</span><div><h3>The model returns a call or a reply.</h3><p>A function call with arguments, JSON for a schema, one shell command, or a question or refusal in words when no tool fits or a detail is missing.</p></div></li>
+            <li><span class="step-number">3</span><div><h3>Your app checks, confirms and runs.</h3><p>Allow only known tools, validate the arguments, and ask the person before anything that sends, pays, deletes, shares or runs. Then send the result back for the final reply.</p></div></li>
+          </ol>
+          <a class="text-link" href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/INTEGRATION.md">Read the integration guide <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmarks" class="section shell" aria-labelledby="benchmark-title">
+      <div class="benchmark-intro">
+        <div><p class="eyebrow">02 / The evidence</p><h2 id="benchmark-title">Good at deciding.<br>Behind on exact calls.</h2></div>
+        <div class="benchmark-headline"><strong>75<span>%</span></strong><p>right call / no-call decisions on our held-out<br>relevance set, vs <b>18–20%</b> for Granite 4.0 350M.</p></div>
+      </div>
+      <div class="benchmark-notes">
+        <div><h3>Where it leads</h3><p>Of the tiny open models we tested, it most often declines when no tool fits, chooses the right shell behaviour (<strong>86%</strong>) and returns schema-valid JSON for unseen schemas (<strong>56%</strong>). It is also the fastest generator: <strong>444 tokens/s</strong> at 4-bit on an Apple M6 GPU.</p></div>
+        <div><h3>Where it is behind</h3><p>Exact tool calls and instruction following. On BFCL v3 simple it scores <strong>60%</strong> against 88–91% for both Granite 4.0 350M models, and on IFEval <strong>26%</strong> against 47–53%. Qwen3-0.6B, with about twice the parameters, is also ahead on both.</p></div>
+        <div><h3>Is the comparison fair?</h3><p>The held-out sets are ours and follow this model’s prompt conventions, so they favour it. BFCL v3, IFEval and XSTest are neutral. On BFCL irrelevance, Qwen3-0.6B (88%) and SmolLM2 (75%) beat Udgam (68%).</p></div>
+      </div>
+      <details class="benchmark-table" open>
+        <summary>Read the numbers as a table</summary>
+        <div class="table-scroll"><table class="compare"><caption>Same harness, same prompts, same scorer · greedy, Q8_0, thinking off</caption>
+          <thead><tr><th scope="col">Metric</th><th scope="col">Udgam-384M</th><th scope="col">Granite 4.0 350M</th><th scope="col">Granite 4.0 H 350M</th><th scope="col">SmolLM2 360M</th><th scope="col">Qwen3-0.6B</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Held-out relevance: right decision</th><td><b>75</b></td><td>18.3</td><td>20</td><td>46.7</td><td>66.7</td></tr>
+            <tr><th scope="row">Held-out document → JSON: schema-valid</th><td><b>56</b></td><td>32</td><td>38</td><td>0</td><td>24</td></tr>
+            <tr><th scope="row">Held-out shell: right behaviour</th><td><b>85.9</b></td><td>59.4</td><td>67.2</td><td>39.1</td><td>67.2</td></tr>
+            <tr><th scope="row">Held-out app actions: exact call (unseen tools)</th><td>31.4</td><td><b>45.7</b></td><td><b>45.7</b></td><td>1.4</td><td>44.3</td></tr>
+            <tr><th scope="row">BFCL v3 simple</th><td>60</td><td><b>90.7</b></td><td>88</td><td>4.7</td><td>80</td></tr>
+            <tr><th scope="row">BFCL v3 irrelevance</th><td>68</td><td>55.3</td><td>66.7</td><td>75.3</td><td><b>88</b></td></tr>
+            <tr><th scope="row">IFEval prompt-level strict</th><td>26.1</td><td>47</td><td>53.4</td><td>31.4</td><td><b>58</b></td></tr>
+            <tr><th scope="row">XSTest unsafe declined (higher is safer)</th><td>54.0</td><td>80.0</td><td><b>92.5</b></td><td>27.5</td><td>17.0</td></tr>
+            <tr><th scope="row">Generation, Q4_K_M, Apple M6 GPU (tok/s)</th><td><b>444</b></td><td>411</td><td>262</td><td>358</td><td>282</td></tr>
+          </tbody></table></div>
+      </details>
+      <p class="benchmark-method">Each model used its own chat template and native tool-call format. SmolLM2-360M’s template has no tool support, so its near-zero tool scores mean “not a tool model”. Shell commands are rarely correct when actually run, for every model here (0–8%).</p>
+      <a class="text-link" href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Full benchmarks, quantization and fairness notes <span aria-hidden="true">↗</span></a>
+    </section>
+
+    <section id="build" class="build-section" aria-labelledby="build-title">
+      <div class="shell build-layout">
+        <div>
+          <p class="eyebrow">03 / Build with it</p>
+          <h2 id="build-title">Your tools.<br>Your application.</h2>
+          <p>Download a GGUF from Hugging Face and run it with the provided Modelfile, or load the MLX or transformers weights. The repository has runnable examples for each runtime.</p>
+          <p class="small">Use Q8_0 by default and Q4_K_M on phones. For tool use: temperature 0.1, top-p 0.9, top-k 40, repeat penalty 1.1. Context: 4,096 tokens.</p>
+          <div class="build-links"><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/QUICKSTART.md">Quickstart <span aria-hidden="true">↗</span></a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/INTEGRATION.md">Tool calling &amp; integration <span aria-hidden="true">↗</span></a><a href="https://github.com/UdgamLabs/udgam-384m/tree/main/examples">Runnable examples <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="code-panel">
+          <div class="code-heading"><span>Shell / Ollama</span></div>
+          <pre tabindex="0" aria-label="Ollama usage example"><code><span class="code-keyword">ollama</span> create udgam -f Modelfile
+
+<span class="code-keyword">curl</span> http://localhost:11434/api/chat -d <span class="code-string">'{
+  "model": "udgam", "think": false, "stream": false,
+  "messages": [{"role": "user",
+    "content": "Wake me up at 6:45, label it gym."}],
+  "tools": [ …set_alarm… ]
+}'</span>
+
+<span class="code-keyword">#</span> → tool_calls: set_alarm {"time": "06:45", "label": "Gym"}</code></pre>
+          <p>Illustrative usage. The full request, with the tool schema, is in the quickstart. This page does not execute the code.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell faq-section" aria-labelledby="faq-title">
+      <div><p class="eyebrow">Before you use it</p><h2 id="faq-title">A few honest answers.</h2></div>
+      <div class="faq-list">
+        <details><summary>Is this a chatbot?</summary><p>It can chat, but it is built to be the language layer of an app: calling the app’s functions, filling schemas and proposing shell commands. At 384M parameters it is fluent but often factually wrong, so it is not a knowledgeable general assistant.</p></details>
+        <details><summary>Can I let it act on its own?</summary><p>No. On tools it has never seen, about one call in three is exactly right, and it sometimes guesses a value instead of asking. Keep an allowlist of tools, validate arguments and confirm anything consequential. Never auto-execute its shell commands.</p></details>
+        <details><summary>Is it safe for open chat?</summary><p>It is not safety-hardened. On XSTest it declines about 54–57% of clearly harmful prompts and over-refuses about 15% of safe ones. Put a moderation model or policy layer in front of open chat that people use.</p></details>
+        <details><summary>Will it run on my phone or laptop?</summary><p>The 4-bit GGUF is 238 MB and used about 323 MB of RAM in a CPU run on a Mac. On an Apple M6 GPU it generates about 444 tokens per second. Phones are slower, so measure your own device.</p></details>
+        <details><summary>How was it trained?</summary><p>From scratch, with no weights from any other model: pretrained on roughly 8B tokens of licensed public and synthetic text, then post-trained with supervised fine-tuning for chat and tool use. The technical report gives an overview of the architecture and evaluation.</p></details>
+        <details><summary>What are the limits?</summary><p>English only, a 4,096-token context (2,048 for the base model), and best results with the prompt conventions in the integration guide. Some agent apps send hidden prompts longer than 4,096 tokens, which do not fit.</p></details>
+        <details><summary>What are the release terms?</summary><p>Apache-2.0 for the weights, tokenizer, documentation and example code. The chat template is the official Gemma 4 template (Apache-2.0).</p></details>
+      </div>
+    </section>
+    <section class="release-section shell" aria-labelledby="release-title">
+      <div><p class="eyebrow">Weights, documentation and the report</p><h2 id="release-title">Take a closer look.</h2><p>Weights and model cards are on Hugging Face. Documentation, examples and checksums are on GitHub.</p></div>
+      <div class="release-links"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat"><span>Hugging Face</span><strong>Weights &amp; model card <span aria-hidden="true">↗</span></strong></a><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat/blob/main/TECHNICAL_REPORT.md"><span>Technical report</span><strong>Architecture &amp; evaluation <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/UdgamLabs/udgam-384m"><span>GitHub</span><strong>Docs &amp; examples <span aria-hidden="true">↗</span></strong></a></div>
+    </section>
+  </main>
+  <footer class="site-footer shell"><div><strong>UDGAM LABS</strong><p>Frontier technology lab · India</p></div><nav aria-label="Footer navigation"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat">Model card</a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Benchmarks</a><a href="https://www.udgamlabs.com/">The lab</a><a href="#main">Back to top ↑</a></nav><p class="footer-note">Static recorded examples. No inference, tracking or external assets on this page.</p></footer>
+</body>
+</html>

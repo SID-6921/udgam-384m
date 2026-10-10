@@ -1,0 +1,15 @@
+# Udgam-384M-Chat (UdgamLabs) for Ollama, CHAT preset: more varied replies, fewer runaway answers; tool calls are
+# a little less exact than with the default Modelfile (BFCL simple ~52% vs ~59% in our tests).
+# Smaller file for phones: change FROM to ./Udgam-384M-Chat-Q4_K_M.gguf.
+# Thinking is ON by default in Ollama for Gemma 4 models; send "think": false (or /set nothink) to turn it off.
+FROM ./Udgam-384M-Chat-Q8_0.gguf
+TEMPLATE {{ .Prompt }}
+RENDERER gemma4
+PARSER gemma4
+PARAMETER temperature 0.5
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.1
+PARAMETER repeat_last_n 64
+PARAMETER num_predict 1024
+PARAMETER num_ctx 4096

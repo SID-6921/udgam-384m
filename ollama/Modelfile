@@ -1,0 +1,15 @@
+# Udgam-384M-Chat (UdgamLabs) for Ollama: on-device tool calling. Defaults tuned for exact tool calls:
+# low temperature + a mild repeat penalty (stops "offline, offline, offline" loops without hurting tool calls).
+# Smaller file for phones: change FROM to ./Udgam-384M-Chat-Q4_K_M.gguf.  For open-ended chat use Modelfile.chat.
+# Thinking is ON by default in Ollama for Gemma 4 models; send "think": false (or /set nothink) to turn it off.
+FROM ./Udgam-384M-Chat-Q8_0.gguf
+TEMPLATE {{ .Prompt }}
+RENDERER gemma4
+PARSER gemma4
+PARAMETER temperature 0.1
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.1
+PARAMETER repeat_last_n 64
+PARAMETER num_predict 1024
+PARAMETER num_ctx 4096
