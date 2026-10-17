@@ -18,7 +18,7 @@ jobs inside an app:
 **What it is not:** a knowledgeable general assistant (at 384M parameters it makes factual mistakes), or a
 safety-hardened open chatbot. Use it where *your app* decides which tools exist and confirms risky actions.
 
-**Model family:** [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base) (2,048 context) · [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) · [Udgam-384M-Chat](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) · [GGUF](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) · [MLX](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX) · [MLX 4-bit](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX-4bit) · **[Technical report](https://huggingface.co/UdgamLabs/Udgam-384M-Chat/blob/main/TECHNICAL_REPORT.md)**
+**Model family:** [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base) (2,048 context) · [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) · [Udgam-384M-Chat](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) · [GGUF](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) · [MLX](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX) · [MLX 4-bit](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX-4bit) · **[Technical report](https://udgamlabs.com/reports/udgam-384m)**
 
 | | |
 |---|---|
@@ -289,7 +289,7 @@ email → JSON with a given schema; suggesting shell commands for a person to re
 
 Pretrained from scratch on roughly 8B tokens of licensed public and synthetic text (base:
 [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K)), then post-trained with supervised fine-tuning for chat and tool use.
-See the [technical report](https://huggingface.co/UdgamLabs/Udgam-384M-Chat/blob/main/TECHNICAL_REPORT.md) for an overview.
+See the [technical report](https://udgamlabs.com/reports/udgam-384m) for an overview.
 
 ## Licence
 
@@ -303,7 +303,7 @@ Apache-2.0 (weights and tokenizer); see `LICENSE`. The chat template is the offi
   author       = {{Udgam Labs}},
   year         = {2026},
   howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
-  note         = {Technical report: TECHNICAL_REPORT.md in the Udgam-384M-Chat repository}
+  note         = {Technical report: \url{https://udgamlabs.com/reports/udgam-384m}}
 }
 ```
 

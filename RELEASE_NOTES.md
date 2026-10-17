@@ -20,7 +20,7 @@ First public release, 10 October 2026. The weights are on Hugging Face. This rep
 | Path | Contents |
 |---|---|
 | `README.md` | Overview, quick start, comparison highlights, safety and limits |
-| `docs/` | [Quickstart](docs/QUICKSTART.md), [integration guide](docs/INTEGRATION.md), [benchmarks](docs/BENCHMARKS.md), [model card](docs/MODEL_CARD.md), [technical report](docs/TECHNICAL_REPORT.md), and the [visual walkthrough](https://udgamlabs.github.io/udgam-384m/) (`docs/index.html`) |
+| `docs/` | [Quickstart](docs/QUICKSTART.md), [integration guide](docs/INTEGRATION.md), [benchmarks](docs/BENCHMARKS.md), [model card](docs/MODEL_CARD.md), [technical report](https://udgamlabs.com/reports/udgam-384m), and the [visual walkthrough](https://udgamlabs.github.io/udgam-384m/) (`docs/index.html`) |
 | `examples/` | Six runnable scripts plus a small Gemma 4 tool-call parser |
 | `ollama/` | `Modelfile` (tool use, temperature 0.1) and `Modelfile.chat` (open chat, temperature 0.5), identical to the Hugging Face copies |
 | `SHA256SUMS` | SHA-256 of every published file in the six Hugging Face repositories, except model cards and `.gitattributes` |

@@ -1,6 +1,6 @@
 # Benchmarks
 
-Results for Udgam-384M-Chat, copied from the public [model card](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) and [technical report](TECHNICAL_REPORT.md). Read the fairness notes with the tables: our held-out task sets favour this model, so the neutral public benchmarks (BFCL v3, IFEval, XSTest) matter as much as the wins.
+Results for Udgam-384M-Chat, copied from the public [model card](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) and [technical report](https://udgamlabs.com/reports/udgam-384m). Read the fairness notes with the tables: our held-out task sets favour this model, so the neutral public benchmarks (BFCL v3, IFEval, XSTest) matter as much as the wins.
 
 [Comparison](#compared-with-other-tiny-open-models-same-harness-same-prompts) · [Quantization](#quantization) · [Sampling](#sampling-and-tool-accuracy) · [Base models](#base-models) · [Safety](#safety)
 

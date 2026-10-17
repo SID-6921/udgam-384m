@@ -34,7 +34,7 @@ These show typical behaviour. They are not a representative sample. On tools it 
 
 - **For people exploring the model:** open the [visual walkthrough](https://udgamlabs.github.io/udgam-384m/).
 - **For developers:** start with the [quickstart](docs/QUICKSTART.md), the [integration guide](docs/INTEGRATION.md) and the [examples](examples/).
-- **For researchers:** read the [technical report](docs/TECHNICAL_REPORT.md), the [benchmarks](docs/BENCHMARKS.md) and the [model card](docs/MODEL_CARD.md).
+- **For researchers:** read the [technical report](https://udgamlabs.com/reports/udgam-384m), the [benchmarks](docs/BENCHMARKS.md) and the [model card](docs/MODEL_CARD.md).
 
 ## Get started
 
@@ -151,7 +151,7 @@ Apache-2.0 for the weights, tokenizer, documentation and example code (see [`LIC
 | [Integration guide](docs/INTEGRATION.md) | Tool calling with Ollama, llama.cpp, transformers and MLX; prompt conventions; LM Studio notes |
 | [Benchmarks](docs/BENCHMARKS.md) | Full comparison, speed, quantization and safety tables |
 | [Model card](docs/MODEL_CARD.md) | Intended use, prompt format and limitations |
-| [Technical report](docs/TECHNICAL_REPORT.md) | Architecture, high-level training, evaluation and safety |
+| [Technical report](https://udgamlabs.com/reports/udgam-384m) | Architecture, high-level training, evaluation and safety |
 | [Release notes](RELEASE_NOTES.md) | What is in this release |
 | [Udgam Labs](https://www.udgamlabs.com/) | The lab behind the model |
 
@@ -163,7 +163,7 @@ Apache-2.0 for the weights, tokenizer, documentation and example code (see [`LIC
   author       = {{Udgam Labs}},
   year         = {2026},
   howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
-  note         = {Technical report: TECHNICAL_REPORT.md in the Udgam-384M-Chat repository}
+  note         = {Technical report: \url{https://udgamlabs.com/reports/udgam-384m}}
 }
 ```
 
