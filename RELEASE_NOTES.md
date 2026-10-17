@@ -2,6 +2,8 @@
 
 First public release, 10 October 2026. The weights are on Hugging Face. This repository adds documentation, runnable examples, the Ollama Modelfiles and checksums.
 
+**Update, 12 October 2026:** `tokenizer.json` in the Base, Base-4K, Chat, Chat-MLX and Chat-MLX-4bit repositories now adds `<bos>` to plain-text input (`tokenizer(text)`), as the models were trained. The weights, the GGUF files and chat-template use are unchanged. If you add `<bos>` yourself, pass `add_special_tokens=False`. `SHA256SUMS` lists the updated files.
+
 - **Three models, trained from scratch** (no weights from any other model), each with 384.4M parameters and the Gemma 4 architecture (`Gemma4ForCausalLM`):
   - [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base): pretrained base model, 2,048-token context.
   - [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K): the base model after a short extra pretraining stage at 4,096 tokens.

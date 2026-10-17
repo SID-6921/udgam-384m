@@ -131,7 +131,7 @@ The weights live on Hugging Face only; this repository holds no weights.
 | [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) | Base model with a 4,096-token context (the chat model's starting point) |
 | [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base) | Pretrained base model, 2,048-token context |
 
-[`SHA256SUMS`](SHA256SUMS) lists the SHA-256 of every file in the six Hugging Face repositories at release (weights, tokenizers, configurations, Modelfiles, licences and the technical report; model cards and `.gitattributes` are left out because they can be edited). To check a download:
+[`SHA256SUMS`](SHA256SUMS) lists the SHA-256 of every file in the six Hugging Face repositories at release, with `tokenizer.json` as updated on 12 October 2026 (weights, tokenizers, configurations, Modelfiles, licences and the technical report; model cards and `.gitattributes` are left out because they can be edited). To check a download:
 
 ```bash
 grep Udgam-384M-Chat-Q8_0.gguf SHA256SUMS
