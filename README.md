@@ -2,7 +2,7 @@
 
 # Udgam-384M
 
-A 384M-parameter English language model for **tool calling inside apps, on the device itself**. Built by **Udgam Labs**, a frontier technology lab in India, and trained from scratch: no weights from any other model. It uses the Gemma 4 architecture, so the same weights run unmodified in Ollama, LM Studio, llama.cpp, MLX and 🤗 transformers. The 4-bit file is 238 MB.
+A 384M-parameter English language model for **tool calling inside apps, on the device itself**. Built by **Udgam Labs** and trained from scratch: no weights from any other model. It uses the Gemma 4 architecture, so the same weights run unmodified in Ollama, LM Studio, llama.cpp, MLX and 🤗 transformers. The 4-bit file is 238 MB.
 
 Ask it to “wake me at 6:45, label it gym” and it returns `set_alarm{time:"06:45", label:"gym"}`. Your app checks the call, runs the function and confirms anything risky. The model takes no action by itself.
 
@@ -87,7 +87,7 @@ The scripts that use a server need only the Python standard library.
 
 We compared five tiny open models on the same harness, prompts and scorer: greedy decoding, Q8_0, thinking off.
 
-| | Udgam-384M-Chat | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3-0.6B (~2× params) |
+| | Udgam-384M-Chat | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3-0.6B (~1.6× params) |
 |---|---:|---:|---:|---:|---:|
 | Held-out relevance: right decision | **75** | 18.3 | 20 | 46.7 | 66.7 |
 | Held-out document → JSON: schema-valid (unseen schemas) | **56** | 32 | 38 | 0 | 24 |
@@ -105,7 +105,7 @@ The held-out sets are our own and follow this model's prompt conventions, so the
 
 ## Safety
 
-On XSTest the model declines about **54–57%** of clearly harmful prompts and over-refuses about **15%** of safe prompts that only sound alarming. This is below what we would want for an open chatbot, so we release it as **not safety-hardened**. The base models received no safety training.
+On XSTest the model declines **54%** of clearly harmful prompts and over-refuses **15%** of safe prompts that only sound alarming (refusal-phrase classifier, the same one used for every model compared; an LLM judge gave 56.5% and 14.4%). This is below what we would want for an open chatbot, so we release it as **not safety-hardened**. The base models received no safety training.
 
 - **App actions:** rely on your app's allowlist of tools, argument validation and user confirmation for anything with consequences (send, pay, delete, share, run). Do not rely on the model's judgement.
 - **Shell commands:** always show the command and require confirmation. Never auto-execute.
@@ -160,7 +160,7 @@ Apache-2.0 for the weights, tokenizer, documentation and example code (see [`LIC
 ```bibtex
 @misc{udgamlabs2026udgam384m,
   title        = {Udgam-384M: a small on-device tool-calling model trained from scratch},
-  author       = {{UdgamLabs}},
+  author       = {{Udgam Labs}},
   year         = {2026},
   howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
   note         = {Technical report: TECHNICAL_REPORT.md in the Udgam-384M-Chat repository}

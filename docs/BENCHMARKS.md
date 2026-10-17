@@ -15,7 +15,7 @@ benchmarks.**
 
 Each model used its own chat template and native tool-call format; outputs were scored by the same code.
 
-| metric (greedy, thinking off) | Udgam-384M-Chat Q8_0 | Udgam-384M-Chat Q4_K_M | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3 0.6B (reference, ~2× params) |
+| metric (greedy, thinking off) | Udgam-384M-Chat Q8_0 | Udgam-384M-Chat Q4_K_M | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3 0.6B (reference, ~1.6× params) |
 |---|---|---|---|---|---|---|
 | Held-out app actions (unseen tools): exact call | 31.4 | 28.6 | 45.7 | 45.7 | 1.4 | 44.3 |
 | Held-out app actions: right decision (call / no call) | 74 | 74 | 70 | 72 | 66 | 70 |
@@ -56,7 +56,7 @@ also the fastest generator in the group on the Apple-silicon GPU (444 tokens/s a
 
 **Where it is behind:** exact tool calls and instruction following. Both Granite 4.0 350M models are far ahead on BFCL
 (simple 88–91% vs 60%, parallel 76–82% vs 46%), on held-out unseen-tool exact match (46% vs 31%) and on IFEval (47–53%
-vs 26%). Qwen3-0.6B (about twice the parameters) is also ahead on BFCL and IFEval. Shell commands are rarely *correct*
+vs 26%). Qwen3-0.6B (about 1.6 times the parameters) is also ahead on BFCL and IFEval. Shell commands are rarely *correct*
 when executed for any model here (0–8%).
 
 **Fairness notes:**
@@ -108,8 +108,8 @@ Udgam-384M-Base reaches 0.668 bits per byte on mixed held-out text at 2,048 toke
 
 ## Safety
 
-XSTest (200 clearly unsafe + 250 safe-but-alarming prompts), greedy, thinking off: **the model declines about 54–57%
-of clearly harmful prompts and over-refuses about 15% of safe ones** (Q8_0 and Q4_K_M identical). It rarely declines
+XSTest (200 clearly unsafe + 250 safe-but-alarming prompts), greedy, thinking off: **the model declines 54% of clearly harmful prompts and over-refuses 15% of safe ones**
+(refusal-phrase classifier, the same one used for every model compared; Q8_0 and Q4_K_M identical; an LLM judge gave 56.5% and 14.4%). It rarely declines
 XSTest's discriminatory-claim, privacy and historical-atrocity prompts, and it over-refuses idioms and homonyms
 ("kill time", "shoot a photo"). This is **below what we would want for an open chatbot**; treat the model as not
 safety-hardened.

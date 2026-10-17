@@ -2,7 +2,7 @@
 
 # Udgam-384M-Chat
 
-**A 384M-parameter English model for on-device tool calling, trained from scratch by UdgamLabs.** It is a
+**A 384M-parameter English model for on-device tool calling, trained from scratch by Udgam Labs.** It is a
 decoder-only transformer compatible with the Gemma 4 architecture (`Gemma4ForCausalLM`), so it runs unmodified in
 Ollama, LM Studio, llama.cpp, MLX and 🤗 transformers. Context: 4,096 tokens. The 4-bit GGUF is 238 MB. Built for four
 jobs inside an app:
@@ -22,7 +22,7 @@ safety-hardened open chatbot. Use it where *your app* decides which tools exist 
 
 | | |
 |---|---|
-| Developer | UdgamLabs |
+| Developer | Udgam Labs |
 | Parameters | 384M (20 layers, hidden size 1,024) |
 | Architecture | decoder-only transformer, compatible with Gemma 4 (`Gemma4ForCausalLM`); sliding-window + global attention |
 | Context | 4,096 tokens |
@@ -172,7 +172,7 @@ benchmarks.**
 
 Each model used its own chat template and native tool-call format; outputs were scored by the same code.
 
-| metric (greedy, thinking off) | Udgam-384M-Chat Q8_0 | Udgam-384M-Chat Q4_K_M | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3 0.6B (reference, ~2× params) |
+| metric (greedy, thinking off) | Udgam-384M-Chat Q8_0 | Udgam-384M-Chat Q4_K_M | Granite 4.0 350M | Granite 4.0 H 350M | SmolLM2 360M Instruct | Qwen3 0.6B (reference, ~1.6× params) |
 |---|---|---|---|---|---|---|
 | Held-out app actions (unseen tools): exact call | 31.4 | 28.6 | 45.7 | 45.7 | 1.4 | 44.3 |
 | Held-out app actions: right decision (call / no call) | 74 | 74 | 70 | 72 | 66 | 70 |
@@ -213,7 +213,7 @@ also the fastest generator in the group on the Apple-silicon GPU (444 tokens/s a
 
 **Where it is behind:** exact tool calls and instruction following. Both Granite 4.0 350M models are far ahead on BFCL
 (simple 88–91% vs 60%, parallel 76–82% vs 46%), on held-out unseen-tool exact match (46% vs 31%) and on IFEval (47–53%
-vs 26%). Qwen3-0.6B (about twice the parameters) is also ahead on BFCL and IFEval. Shell commands are rarely *correct*
+vs 26%). Qwen3-0.6B (about 1.6 times the parameters) is also ahead on BFCL and IFEval. Shell commands are rarely *correct*
 when executed for any model here (0–8%).
 
 **Fairness notes:**
@@ -257,8 +257,8 @@ Perplexity on held-out chat and tool-use text: f16 3.193, Q8_0 +0.07%, Q6_K +0.5
 
 ## Safety
 
-XSTest (200 clearly unsafe + 250 safe-but-alarming prompts), greedy, thinking off: **the model declines about 54–57%
-of clearly harmful prompts and over-refuses about 15% of safe ones** (Q8_0 and Q4_K_M identical). It rarely declines
+XSTest (200 clearly unsafe + 250 safe-but-alarming prompts), greedy, thinking off: **the model declines 54% of clearly harmful prompts and over-refuses 15% of safe ones**
+(refusal-phrase classifier, the same one used for every model compared; Q8_0 and Q4_K_M identical; an LLM judge gave 56.5% and 14.4%). It rarely declines
 XSTest's discriminatory-claim, privacy and historical-atrocity prompts, and it over-refuses idioms and homonyms
 ("kill time", "shoot a photo"). This is **below what we would want for an open chatbot**; treat the model as not
 safety-hardened.
@@ -280,7 +280,7 @@ email → JSON with a given schema; suggesting shell commands for a person to re
   and it does not reliably refuse destructive requests.
 - **Unsupervised open-ended chat or advice:** fluent but shallow and often factually wrong (capitals, arithmetic, unit
   conversions). Not for medical, legal or financial use.
-- **Safety:** see above (≈54–57% of harmful prompts declined, ≈15% over-refusal).
+- **Safety:** see above (54% of harmful prompts declined, 15% over-refusal).
 - **Context:** 4,096 tokens. English only.
 - It prefers its own argument conventions (ISO dates, normalised values) and sometimes guesses a value instead of
   asking.
@@ -300,7 +300,7 @@ Apache-2.0 (weights and tokenizer); see `LICENSE`. The chat template is the offi
 ```bibtex
 @misc{udgamlabs2026udgam384m,
   title        = {Udgam-384M: a small on-device tool-calling model trained from scratch},
-  author       = {{UdgamLabs}},
+  author       = {{Udgam Labs}},
   year         = {2026},
   howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
   note         = {Technical report: TECHNICAL_REPORT.md in the Udgam-384M-Chat repository}
@@ -309,4 +309,4 @@ Apache-2.0 (weights and tokenizer); see `LICENSE`. The chat template is the offi
 
 ## Contact
 
-UdgamLabs. Please use the Community (discussions) tab of the model page for questions, issues and feedback.
+Udgam Labs. Please use the Community (discussions) tab of the model page for questions, issues and feedback.

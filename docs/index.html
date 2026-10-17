@@ -20,7 +20,7 @@ no model, form submission or network request runs on this page.
   <a class="skip" href="#main">Skip to content</a>
   <div class="release-note">Public release · 10 October 2026 <span aria-hidden="true">/</span> Recorded examples. Measured results. Known limitations.</div>
   <header class="site-header shell">
-    <a class="wordmark" href="https://github.com/UdgamLabs" aria-label="Udgam Labs on GitHub">UDGAM LABS<span>Frontier technology lab · India</span></a>
+    <a class="wordmark" href="https://github.com/UdgamLabs" aria-label="Udgam Labs on GitHub">UDGAM LABS<span>Frontier technology lab</span></a>
     <nav aria-label="Main navigation">
       <a href="#examples">Examples</a>
       <a href="#benchmarks">The evidence</a>
@@ -129,7 +129,7 @@ no model, form submission or network request runs on this page.
       </div>
       <div class="benchmark-notes">
         <div><h3>Where it leads</h3><p>Of the tiny open models we tested, it most often declines when no tool fits, chooses the right shell behaviour (<strong>86%</strong>) and returns schema-valid JSON for unseen schemas (<strong>56%</strong>). It is also the fastest generator: <strong>444 tokens/s</strong> at 4-bit on an Apple M6 GPU.</p></div>
-        <div><h3>Where it is behind</h3><p>Exact tool calls and instruction following. On BFCL v3 simple it scores <strong>60%</strong> against 88–91% for both Granite 4.0 350M models, and on IFEval <strong>26%</strong> against 47–53%. Qwen3-0.6B, with about twice the parameters, is also ahead on both.</p></div>
+        <div><h3>Where it is behind</h3><p>Exact tool calls and instruction following. On BFCL v3 simple it scores <strong>60%</strong> against 88–91% for both Granite 4.0 350M models, and on IFEval <strong>26%</strong> against 47–53%. Qwen3-0.6B, with about 1.6 times the parameters, is also ahead on both.</p></div>
         <div><h3>Is the comparison fair?</h3><p>The held-out sets are ours and follow this model’s prompt conventions, so they favour it. BFCL v3, IFEval and XSTest are neutral. On BFCL irrelevance, Qwen3-0.6B (88%) and SmolLM2 (75%) beat Udgam (68%).</p></div>
       </div>
       <details class="benchmark-table" open>
@@ -183,7 +183,7 @@ no model, form submission or network request runs on this page.
       <div class="faq-list">
         <details><summary>Is this a chatbot?</summary><p>It can chat, but it is built to be the language layer of an app: calling the app’s functions, filling schemas and proposing shell commands. At 384M parameters it is fluent but often factually wrong, so it is not a knowledgeable general assistant.</p></details>
         <details><summary>Can I let it act on its own?</summary><p>No. On tools it has never seen, about one call in three is exactly right, and it sometimes guesses a value instead of asking. Keep an allowlist of tools, validate arguments and confirm anything consequential. Never auto-execute its shell commands.</p></details>
-        <details><summary>Is it safe for open chat?</summary><p>It is not safety-hardened. On XSTest it declines about 54–57% of clearly harmful prompts and over-refuses about 15% of safe ones. Put a moderation model or policy layer in front of open chat that people use.</p></details>
+        <details><summary>Is it safe for open chat?</summary><p>It is not safety-hardened. On XSTest it declines 54% of clearly harmful prompts and over-refuses 15% of safe ones. Put a moderation model or policy layer in front of open chat that people use.</p></details>
         <details><summary>Will it run on my phone or laptop?</summary><p>The 4-bit GGUF is 238 MB and used about 323 MB of RAM in a CPU run on a Mac. On an Apple M6 GPU it generates about 444 tokens per second. Phones are slower, so measure your own device.</p></details>
         <details><summary>How was it trained?</summary><p>From scratch, with no weights from any other model: pretrained on roughly 8B tokens of licensed public and synthetic text, then post-trained with supervised fine-tuning for chat and tool use. The technical report gives an overview of the architecture and evaluation.</p></details>
         <details><summary>What are the limits?</summary><p>English only, a 4,096-token context (2,048 for the base model), and best results with the prompt conventions in the integration guide. Some agent apps send hidden prompts longer than 4,096 tokens, which do not fit.</p></details>
@@ -195,6 +195,6 @@ no model, form submission or network request runs on this page.
       <div class="release-links"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat"><span>Hugging Face</span><strong>Weights &amp; model card <span aria-hidden="true">↗</span></strong></a><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat/blob/main/TECHNICAL_REPORT.md"><span>Technical report</span><strong>Architecture &amp; evaluation <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/UdgamLabs/udgam-384m"><span>GitHub</span><strong>Docs &amp; examples <span aria-hidden="true">↗</span></strong></a></div>
     </section>
   </main>
-  <footer class="site-footer shell"><div><strong>UDGAM LABS</strong><p>Frontier technology lab · India</p></div><nav aria-label="Footer navigation"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat">Model card</a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Benchmarks</a><a href="https://www.udgamlabs.com/">The lab</a><a href="#main">Back to top ↑</a></nav><p class="footer-note">Static recorded examples. No inference, tracking or external assets on this page.</p></footer>
+  <footer class="site-footer shell"><div><strong>UDGAM LABS</strong><p>Frontier technology lab</p></div><nav aria-label="Footer navigation"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat">Model card</a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Benchmarks</a><a href="https://www.udgamlabs.com/">The lab</a><a href="#main">Back to top ↑</a></nav><p class="footer-note">Static recorded examples. No inference, tracking or external assets on this page.</p></footer>
 </body>
 </html>

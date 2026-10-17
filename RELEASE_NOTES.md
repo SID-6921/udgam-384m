@@ -12,7 +12,7 @@ First public release, 10 October 2026. The weights are on Hugging Face. This rep
 - **Four jobs:** app actions (function calls), document → JSON, natural language → shell (for review), and relevance (decline, ask or refuse).
 - **Runs in** Ollama, LM Studio, llama.cpp, MLX and transformers with the standard Gemma 4 chat template and tool-call format.
 - **Measured:** leads the tiny open models we compared on our held-out relevance, document → JSON and shell-behaviour tests, and on generation speed on an Apple-silicon GPU. It is behind Granite 4.0 350M and Qwen3-0.6B on BFCL v3 and IFEval. See [benchmarks](docs/BENCHMARKS.md).
-- **Safety:** declines about 54–57% of clearly harmful XSTest prompts and over-refuses about 15% of safe ones. Released as **not safety-hardened**.
+- **Safety:** declines 54% of clearly harmful XSTest prompts and over-refuses 15% of safe ones (refusal-phrase classifier; an LLM judge gave 56.5% and 14.4%). Released as **not safety-hardened**.
 - **Licence:** Apache-2.0.
 
 ## In this repository
