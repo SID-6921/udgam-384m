@@ -6,12 +6,12 @@ Udgam-384M-Chat is a 384M-parameter English model for tool calling inside apps. 
 
 | You are using | Download | Notes |
 |---|---|---|
-| Ollama, llama.cpp, LM Studio | [`Udgam-384M-Chat-Q8_0.gguf`](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) (410 MB) | **Default.** Lossless within noise. |
+| Ollama, llama.cpp, LM Studio | [`Udgam-384M-Chat-Q8_0.gguf`](https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF) (410 MB) | **Default.** Lossless within noise. |
 | The same, on a phone or low-memory device | `Udgam-384M-Chat-Q4_K_M.gguf` (238 MB) | Small quality loss. |
 | A runtime without K-quants | `Udgam-384M-Chat-Q4_0.gguf` (227 MB) | Loses the most. Avoid otherwise. |
-| MLX on Apple silicon | [`Udgam-384M-Chat-MLX-4bit`](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX-4bit) (216 MB) or [`-MLX`](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX) (fp16) | |
-| transformers / PyTorch | [`Udgam-384M-Chat`](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) | safetensors |
-| Text continuation or your own fine-tune | [`Udgam-384M-Base-4K`](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) or [`Udgam-384M-Base`](https://huggingface.co/UdgamLabs/Udgam-384M-Base) | No chat or safety training |
+| MLX on Apple silicon | [`Udgam-384M-Chat-MLX-4bit`](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX-4bit) (216 MB) or [`-MLX`](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX) (fp16) | |
+| transformers / PyTorch | [`Udgam-384M-Chat`](https://huggingface.co/udgamlabs/Udgam-384M-Chat) | safetensors |
+| Text continuation or your own fine-tune | [`Udgam-384M-Base-4K`](https://huggingface.co/udgamlabs/Udgam-384M-Base-4K) or [`Udgam-384M-Base`](https://huggingface.co/udgamlabs/Udgam-384M-Base) | No chat or safety training |
 
 Check a download against [`SHA256SUMS`](../SHA256SUMS) with `shasum -a 256 <file>` (Linux: `sha256sum`).
 
@@ -41,7 +41,7 @@ llama-cli    -m Udgam-384M-Chat-Q8_0.gguf -c 4096 -cnv                     # int
 
 ### LM Studio
 
-1. Search for `UdgamLabs/Udgam-384M-Chat-GGUF` (or drop the `.gguf` into LM Studio's models folder) and pick `Q8_0`, or `Q4_K_M` for low memory.
+1. Search for `udgamlabs/Udgam-384M-Chat-GGUF` (or drop the `.gguf` into LM Studio's models folder) and pick `Q8_0`, or `Q4_K_M` for low memory.
 2. Set **Context Length 4096**, temperature 0.1, top-p 0.9, top-k 40, repeat penalty 1.1.
 3. For the **MLX** versions, set **Max Concurrent Predictions to 1** before loading (see [LM Studio notes](INTEGRATION.md#lm-studio)).
 
@@ -49,8 +49,8 @@ llama-cli    -m Udgam-384M-Chat-Q8_0.gguf -c 4096 -cnv                     # int
 
 ```bash
 pip install mlx-lm
-mlx_lm.generate --model UdgamLabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
-mlx_lm.server   --model UdgamLabs/Udgam-384M-Chat-MLX-4bit --port 8091   # OpenAI-compatible API with parsed tool_calls
+mlx_lm.generate --model udgamlabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
+mlx_lm.server   --model udgamlabs/Udgam-384M-Chat-MLX-4bit --port 8091   # OpenAI-compatible API with parsed tool_calls
 ```
 
 When you call `mlx_lm.server`, send the same model id in the request's `model` field.
@@ -60,8 +60,8 @@ When you call `mlx_lm.server`, send the same model id in the request's `model` f
 ```python
 # tested with transformers 5.18
 from transformers import AutoTokenizer, AutoModelForCausalLM
-tok = AutoTokenizer.from_pretrained("UdgamLabs/Udgam-384M-Chat")
-model = AutoModelForCausalLM.from_pretrained("UdgamLabs/Udgam-384M-Chat")
+tok = AutoTokenizer.from_pretrained("udgamlabs/Udgam-384M-Chat")
+model = AutoModelForCausalLM.from_pretrained("udgamlabs/Udgam-384M-Chat")
 msgs = [{"role": "user", "content": "Give me three tips for sleeping better."}]
 inputs = tok.apply_chat_template(msgs, add_generation_prompt=True, return_dict=True, return_tensors="pt")
 out = model.generate(**inputs, max_new_tokens=200, do_sample=False)

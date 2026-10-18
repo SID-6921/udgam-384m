@@ -84,7 +84,7 @@ The same request works, unchanged, with:
 |---|---|---|
 | llama-server | `http://localhost:8080/v1` | any |
 | Ollama (OpenAI-compatible) | `http://localhost:11434/v1` | `udgam` |
-| `mlx_lm.server` | `http://localhost:<port>/v1` | the id it was started with, e.g. `UdgamLabs/Udgam-384M-Chat-MLX-4bit` |
+| `mlx_lm.server` | `http://localhost:<port>/v1` | the id it was started with, e.g. `udgamlabs/Udgam-384M-Chat-MLX-4bit` |
 | LM Studio local server | `http://localhost:1234/v1` | the model id shown in LM Studio |
 
 Full script: [`examples/llama_server_tool_call.py`](../examples/llama_server_tool_call.py). We tested it against llama-server, Ollama `/v1` and `mlx_lm.server` (mlx-lm 0.32), and all three returned parsed `tool_calls`.
@@ -108,7 +108,7 @@ Decode with `skip_special_tokens=False`, then parse the call with [`examples/gem
 ```python
 from mlx_lm import load, generate
 from mlx_lm.sample_utils import make_sampler
-model, tokenizer = load("UdgamLabs/Udgam-384M-Chat-MLX-4bit")
+model, tokenizer = load("udgamlabs/Udgam-384M-Chat-MLX-4bit")
 prompt = tokenizer.apply_chat_template(messages, tools=TOOLS, add_generation_prompt=True, tokenize=False)
 raw = generate(model, tokenizer, prompt=prompt, max_tokens=256, sampler=make_sampler(temp=0.0))
 ```
@@ -159,7 +159,7 @@ Offer a `run_shell_command` tool. Its arguments are `command`, a one-sentence `e
 ## LM Studio
 
 - **GGUF:** pick `Q8_0` (or `Q4_K_M`), set **Context Length 4096** and the sampling settings from the [quickstart](QUICKSTART.md#3-recommended-settings). The GGUF carries the Gemma 4 chat template, so the prompt format is set automatically. For tool use, call LM Studio's OpenAI-compatible server (`/v1/chat/completions` with `tools`). If your version does not parse Gemma 4 tool calls into `tool_calls`, parse the text with `gemma4_tools.py`.
-- **MLX versions: set Max Concurrent Predictions to 1.** Before loading, open the model's load settings (⚙️, or turn on “Manually choose model load parameters”). With the default parallel setting, LM Studio's MLX engine (tested with mlx-llm 1.13.1) fails on text-only Gemma 4 models with `KeyError: 'text_config'`. The GGUF version needs no change.
+- **MLX versions: set Max Concurrent Predictions to 1.** Before loading, open the model's load settings (the gear icon, or turn on “Manually choose model load parameters”). With the default parallel setting, LM Studio's MLX engine (tested with mlx-llm 1.13.1) fails on text-only Gemma 4 models with `KeyError: 'text_config'`. The GGUF version needs no change.
 - **Agent workspaces and the 4K context.** Some LM Studio workspace modes add a hidden system and tool prompt of roughly 5,000 tokens. That is more than this model's 4,096-token context, so the request fails or the conversation is truncated. Use plain chat, the local server API, or llama-server's built-in web UI (`llama-server … --jinja`, then open `http://localhost:8080`).
 
 ## Before you ship

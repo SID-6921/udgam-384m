@@ -35,7 +35,7 @@ def generate(tok, model, messages, max_new_tokens=256):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="UdgamLabs/Udgam-384M-Chat")
+    ap.add_argument("--model", default="udgamlabs/Udgam-384M-Chat")
     ap.add_argument("--prompt", default="Wake me up at 6:45 tomorrow, label it gym.")
     a = ap.parse_args()
 

@@ -2,7 +2,7 @@
 
     pip install mlx-lm
     python mlx_tool_call.py                                    # 4-bit MLX weights (216 MB)
-    python mlx_tool_call.py --model UdgamLabs/Udgam-384M-Chat-MLX
+    python mlx_tool_call.py --model udgamlabs/Udgam-384M-Chat-MLX
     python mlx_tool_call.py --prompt "Text Priya that I'll be 10 minutes late."
 
 Like transformers, MLX returns raw Gemma 4 text; gemma4_tools.py (next to this file) parses the tool call.
@@ -35,7 +35,7 @@ TOOLS = [
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="UdgamLabs/Udgam-384M-Chat-MLX-4bit")
+    ap.add_argument("--model", default="udgamlabs/Udgam-384M-Chat-MLX-4bit")
     ap.add_argument("--prompt", default="Wake me up at 6:45 tomorrow, label it gym.")
     a = ap.parse_args()
 

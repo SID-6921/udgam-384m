@@ -1,14 +1,16 @@
-<p align="left"><strong>UDGAM LABS</strong> · A small model for on-device tool calling</p>
+![Udgam-384M · Udgam Labs](./assets/banner.png)
+
+**UDGAM LABS** · Tool-calling model · 384M parameters
 
 # Udgam-384M
 
-A 384M-parameter English language model for **tool calling inside apps, on the device itself**. Built by **Udgam Labs** and trained from scratch: no weights from any other model. It uses the Gemma 4 architecture, so the same weights run unmodified in Ollama, LM Studio, llama.cpp, MLX and 🤗 transformers. The 4-bit file is 238 MB.
+A 384M-parameter English language model for **tool calling inside apps, on the device itself**. Built by **Udgam Labs** and trained from scratch: no weights from any other model. It uses the Gemma 4 architecture, so the same weights run unmodified in Ollama, LM Studio, llama.cpp, MLX and transformers. The 4-bit file is 238 MB.
 
 Ask it to “wake me at 6:45, label it gym” and it returns `set_alarm{time:"06:45", label:"gym"}`. Your app checks the call, runs the function and confirms anything risky. The model takes no action by itself.
 
-**Public release, 10 October 2026:** weights on [Hugging Face](https://huggingface.co/UdgamLabs/Udgam-384M-Chat), a [visual walkthrough](https://udgamlabs.github.io/udgam-384m/), and documentation and runnable examples in this repository. Apache-2.0.
+**Public release, 10 October 2026:** weights on [Hugging Face](https://huggingface.co/udgamlabs/Udgam-384M-Chat), a [visual walkthrough](https://udgamlabs.github.io/udgam-384m/), and documentation and runnable examples in this repository. Apache-2.0.
 
-[What it does](#what-it-does) · [Get started](#get-started) · [Examples](#runnable-examples) · [How it compares](#how-it-compares) · [Safety](#safety) · [Limits](#know-the-limits) · [Files](#model-files-and-integrity)
+[What it does](#what-it-does) · [Get started](#get-started) · [Examples](#runnable-examples) · [How it compares](#how-it-compares) · [Safety](#safety) · [Limits](#where-it-falls-short) · [Files](#model-files-and-integrity)
 
 ## What it does
 
@@ -38,7 +40,7 @@ These show typical behaviour. They are not a representative sample. On tools it 
 
 ## Get started
 
-**Ollama (recommended).** Download `Udgam-384M-Chat-Q8_0.gguf` and `Modelfile` from the [GGUF repository](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) into one folder (the same Modelfiles are in [`ollama/`](ollama/)), then:
+**Ollama (recommended).** Download `Udgam-384M-Chat-Q8_0.gguf` and `Modelfile` from the [GGUF repository](https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF) into one folder (the same Modelfiles are in [`ollama/`](ollama/)), then:
 
 ```bash
 ollama create udgam -f Modelfile
@@ -59,12 +61,12 @@ python examples/llama_server_tool_call.py
 
 ```bash
 pip install mlx-lm
-mlx_lm.generate --model UdgamLabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
+mlx_lm.generate --model udgamlabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
 ```
 
-**transformers:** `AutoModelForCausalLM.from_pretrained("UdgamLabs/Udgam-384M-Chat")`. See [`examples/transformers_tool_call.py`](examples/transformers_tool_call.py).
+**transformers:** `AutoModelForCausalLM.from_pretrained("udgamlabs/Udgam-384M-Chat")`. See [`examples/transformers_tool_call.py`](examples/transformers_tool_call.py).
 
-**LM Studio:** search for `UdgamLabs/Udgam-384M-Chat-GGUF` and pick `Q8_0`, or `Q4_K_M` for phones and low-memory devices. Set Context Length to 4096. For the MLX versions, set **Max Concurrent Predictions to 1** before loading. Agent-style workspaces that add a long hidden prompt can exceed the 4,096-token context. The [integration guide](docs/INTEGRATION.md#lm-studio) explains both points.
+**LM Studio:** search for `udgamlabs/Udgam-384M-Chat-GGUF` and pick `Q8_0`, or `Q4_K_M` for phones and low-memory devices. Set Context Length to 4096. For the MLX versions, set **Max Concurrent Predictions to 1** before loading. Agent-style workspaces that add a long hidden prompt can exceed the 4,096-token context. The [integration guide](docs/INTEGRATION.md#lm-studio) explains both points.
 
 Recommended settings for tool use: **Q8_0** (or **Q4_K_M** on phones), temperature **0.1**, top-p 0.9, top-k 40, repeat penalty 1.1. Use temperature 0.5 for open chat (`Modelfile.chat`), and greedy decoding for reproducible tool calls.
 
@@ -111,7 +113,7 @@ On XSTest the model declines **54%** of clearly harmful prompts and over-refuses
 - **Shell commands:** always show the command and require confirmation. Never auto-execute.
 - **Open chat facing users:** put a moderation model or policy layer in front.
 
-## Know the limits
+## Where it falls short
 
 - **Accuracy on unseen tools:** about one call in three is exactly right. It sometimes picks the wrong tool or guesses an argument instead of asking.
 - **Shell:** syntax is usually valid (~97%), but on unfamiliar tasks only a small fraction of commands give the right output when run (~8%). It does not reliably refuse destructive requests.
@@ -125,11 +127,11 @@ The weights live on Hugging Face only; this repository holds no weights.
 
 | Repository | Contents |
 |---|---|
-| [Udgam-384M-Chat](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) | Chat and tool-use model (safetensors, transformers) and the technical report |
-| [Udgam-384M-Chat-GGUF](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) | Q8_0 (410 MB, default), Q6_K, Q4_K_M (238 MB, phones), Q4_0, f16, Modelfiles |
-| [Udgam-384M-Chat-MLX](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX) · [MLX-4bit](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX-4bit) | MLX fp16 and 4-bit for Apple silicon |
-| [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) | Base model with a 4,096-token context (the chat model's starting point) |
-| [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base) | Pretrained base model, 2,048-token context |
+| [Udgam-384M-Chat](https://huggingface.co/udgamlabs/Udgam-384M-Chat) | Chat and tool-use model (safetensors, transformers) and the technical report |
+| [Udgam-384M-Chat-GGUF](https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF) | Q8_0 (410 MB, default), Q6_K, Q4_K_M (238 MB, phones), Q4_0, f16, Modelfiles |
+| [Udgam-384M-Chat-MLX](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX) · [MLX-4bit](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX-4bit) | MLX fp16 and 4-bit for Apple silicon |
+| [Udgam-384M-Base-4K](https://huggingface.co/udgamlabs/Udgam-384M-Base-4K) | Base model with a 4,096-token context (the chat model's starting point) |
+| [Udgam-384M-Base](https://huggingface.co/udgamlabs/Udgam-384M-Base) | Pretrained base model, 2,048-token context |
 
 [`SHA256SUMS`](SHA256SUMS) lists the SHA-256 of every file in the six Hugging Face repositories at release, with `tokenizer.json` as updated on 12 October 2026 (weights, tokenizers, configurations, Modelfiles, licences and the technical report; model cards and `.gitattributes` are left out because they can be edited). To check a download:
 
@@ -162,9 +164,13 @@ Apache-2.0 for the weights, tokenizer, documentation and example code (see [`LIC
   title        = {Udgam-384M: a small on-device tool-calling model trained from scratch},
   author       = {{Udgam Labs}},
   year         = {2026},
-  howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
+  howpublished = {\url{https://huggingface.co/udgamlabs/Udgam-384M-Chat}},
   note         = {Technical report: \url{https://udgamlabs.com/reports/udgam-384m}}
 }
 ```
 
-Built by [Udgam Labs](https://github.com/UdgamLabs). We welcome reproducible bug reports and improvements to the documentation and examples. Remove personal information from examples before sharing them. For questions about the model, use the Community tab on the [Hugging Face model page](https://huggingface.co/UdgamLabs/Udgam-384M-Chat/discussions).
+Built by [Udgam Labs](https://github.com/udgamlabs). We welcome reproducible bug reports and improvements to the documentation and examples. Remove personal information from examples before sharing them. For questions about the model, use the Community tab on the [Hugging Face model page](https://huggingface.co/udgamlabs/Udgam-384M-Chat/discussions).
+
+---
+
+**About Udgam Labs.** Udgam Labs is an independent AI research lab. We work from first principles: before we build, we understand why things work, whether we are training a model, fine-tuning one or applying AI to a new problem. Udgam (उद्गम) is Sanskrit for origin. [udgamlabs.com](https://udgamlabs.com)

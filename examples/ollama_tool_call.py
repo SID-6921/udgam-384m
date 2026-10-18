@@ -1,7 +1,7 @@
 """Tool calling through Ollama's native /api/chat endpoint (standard library only).
 
 Setup (once): download Udgam-384M-Chat-Q8_0.gguf and the Modelfile from
-https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF into one folder, then run `ollama create udgam -f Modelfile`.
+https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF into one folder, then run `ollama create udgam -f Modelfile`.
 
     python ollama_tool_call.py
     python ollama_tool_call.py --prompt "Text Priya that I'll be 10 minutes late."

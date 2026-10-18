@@ -6,8 +6,8 @@ Small, runnable scripts for Udgam-384M-Chat. The ones that talk to a server use 
 |---|---|---|
 | [`ollama_tool_call.py`](ollama_tool_call.py) | Ollama `/api/chat` | `http://localhost:11434`, model `udgam` |
 | [`llama_server_tool_call.py`](llama_server_tool_call.py) | OpenAI-compatible `/v1/chat/completions` | `http://localhost:8080/v1` |
-| [`transformers_tool_call.py`](transformers_tool_call.py) | transformers + PyTorch | `UdgamLabs/Udgam-384M-Chat` |
-| [`mlx_tool_call.py`](mlx_tool_call.py) | mlx-lm (Apple silicon) | `UdgamLabs/Udgam-384M-Chat-MLX-4bit` |
+| [`transformers_tool_call.py`](transformers_tool_call.py) | transformers + PyTorch | `udgamlabs/Udgam-384M-Chat` |
+| [`mlx_tool_call.py`](mlx_tool_call.py) | mlx-lm (Apple silicon) | `udgamlabs/Udgam-384M-Chat-MLX-4bit` |
 | [`doc_to_json.py`](doc_to_json.py) | OpenAI-compatible | `http://localhost:8080/v1` |
 | [`shell_suggest.py`](shell_suggest.py) | OpenAI-compatible | `http://localhost:8080/v1` |
 

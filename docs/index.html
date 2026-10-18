@@ -20,7 +20,7 @@ no model, form submission or network request runs on this page.
   <a class="skip" href="#main">Skip to content</a>
   <div class="release-note">Public release · 10 October 2026 <span aria-hidden="true">/</span> Recorded examples. Measured results. Known limitations.</div>
   <header class="site-header shell">
-    <a class="wordmark" href="https://github.com/UdgamLabs" aria-label="Udgam Labs on GitHub">UDGAM LABS<span>Frontier technology lab</span></a>
+    <a class="wordmark" href="https://github.com/udgamlabs" aria-label="Udgam Labs on GitHub">UDGAM LABS<span>AI research from first principles</span></a>
     <nav aria-label="Main navigation">
       <a href="#examples">Examples</a>
       <a href="#benchmarks">The evidence</a>
@@ -103,7 +103,7 @@ no model, form submission or network request runs on this page.
           <p id="example-application" class="application-note">Your app checks the call, sets the alarm and sends the result back.</p>
         </div>
       </div>
-      <p class="small muted examples-method">Recorded on 10 October 2026 from the released Q8_0 file at temperature 0.1 with thinking off, using the scripts in the repository’s <a href="https://github.com/UdgamLabs/udgam-384m/tree/main/examples">examples</a>. Examples 01–03 offered three tools: set_alarm, send_message and get_weather. They show typical behaviour, not a representative sample. On tools it has never seen, about one call in three is exactly right.</p>
+      <p class="small muted examples-method">Recorded on 10 October 2026 from the released Q8_0 file at temperature 0.1 with thinking off, using the scripts in the repository’s <a href="https://github.com/udgamlabs/udgam-384m/tree/main/examples">examples</a>. Examples 01–03 offered three tools: set_alarm, send_message and get_weather. They show typical behaviour, not a representative sample. On tools it has never seen, about one call in three is exactly right.</p>
       <p id="example-announcement" class="sr-only" aria-live="polite"></p>
       <noscript><p>The app-action example is shown above. Enable JavaScript to switch saved examples; no network access is used.</p></noscript>
     </section>
@@ -117,7 +117,7 @@ no model, form submission or network request runs on this page.
             <li><span class="step-number">2</span><div><h3>The model returns a call or a reply.</h3><p>A function call with arguments, JSON for a schema, one shell command, or a question or refusal in words when no tool fits or a detail is missing.</p></div></li>
             <li><span class="step-number">3</span><div><h3>Your app checks, confirms and runs.</h3><p>Allow only known tools, validate the arguments, and ask the person before anything that sends, pays, deletes, shares or runs. Then send the result back for the final reply.</p></div></li>
           </ol>
-          <a class="text-link" href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/INTEGRATION.md">Read the integration guide <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="https://github.com/udgamlabs/udgam-384m/blob/main/docs/INTEGRATION.md">Read the integration guide <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
@@ -149,7 +149,7 @@ no model, form submission or network request runs on this page.
           </tbody></table></div>
       </details>
       <p class="benchmark-method">Each model used its own chat template and native tool-call format. SmolLM2-360M’s template has no tool support, so its near-zero tool scores mean “not a tool model”. Shell commands are rarely correct when actually run, for every model here (0–8%).</p>
-      <a class="text-link" href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Full benchmarks, quantization and fairness notes <span aria-hidden="true">↗</span></a>
+      <a class="text-link" href="https://github.com/udgamlabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Full benchmarks, quantization and fairness notes <span aria-hidden="true">↗</span></a>
     </section>
 
     <section id="build" class="build-section" aria-labelledby="build-title">
@@ -159,7 +159,7 @@ no model, form submission or network request runs on this page.
           <h2 id="build-title">Your tools.<br>Your application.</h2>
           <p>Download a GGUF from Hugging Face and run it with the provided Modelfile, or load the MLX or transformers weights. The repository has runnable examples for each runtime.</p>
           <p class="small">Use Q8_0 by default and Q4_K_M on phones. For tool use: temperature 0.1, top-p 0.9, top-k 40, repeat penalty 1.1. Context: 4,096 tokens.</p>
-          <div class="build-links"><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/QUICKSTART.md">Quickstart <span aria-hidden="true">↗</span></a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/INTEGRATION.md">Tool calling &amp; integration <span aria-hidden="true">↗</span></a><a href="https://github.com/UdgamLabs/udgam-384m/tree/main/examples">Runnable examples <span aria-hidden="true">↗</span></a></div>
+          <div class="build-links"><a href="https://github.com/udgamlabs/udgam-384m/blob/main/docs/QUICKSTART.md">Quickstart <span aria-hidden="true">↗</span></a><a href="https://github.com/udgamlabs/udgam-384m/blob/main/docs/INTEGRATION.md">Tool calling &amp; integration <span aria-hidden="true">↗</span></a><a href="https://github.com/udgamlabs/udgam-384m/tree/main/examples">Runnable examples <span aria-hidden="true">↗</span></a></div>
         </div>
         <div class="code-panel">
           <div class="code-heading"><span>Shell / Ollama</span></div>
@@ -192,9 +192,9 @@ no model, form submission or network request runs on this page.
     </section>
     <section class="release-section shell" aria-labelledby="release-title">
       <div><p class="eyebrow">Weights, documentation and the report</p><h2 id="release-title">Take a closer look.</h2><p>Weights and model cards are on Hugging Face. Documentation, examples and checksums are on GitHub.</p></div>
-      <div class="release-links"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat"><span>Hugging Face</span><strong>Weights &amp; model card <span aria-hidden="true">↗</span></strong></a><a href="https://udgamlabs.com/reports/udgam-384m"><span>Technical report</span><strong>Architecture &amp; evaluation <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/UdgamLabs/udgam-384m"><span>GitHub</span><strong>Docs &amp; examples <span aria-hidden="true">↗</span></strong></a></div>
+      <div class="release-links"><a href="https://huggingface.co/udgamlabs/Udgam-384M-Chat"><span>Hugging Face</span><strong>Weights &amp; model card <span aria-hidden="true">↗</span></strong></a><a href="https://udgamlabs.com/reports/udgam-384m"><span>Technical report</span><strong>Architecture &amp; evaluation <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/udgamlabs/udgam-384m"><span>GitHub</span><strong>Docs &amp; examples <span aria-hidden="true">↗</span></strong></a></div>
     </section>
   </main>
-  <footer class="site-footer shell"><div><strong>UDGAM LABS</strong><p>Frontier technology lab</p></div><nav aria-label="Footer navigation"><a href="https://huggingface.co/UdgamLabs/Udgam-384M-Chat">Model card</a><a href="https://github.com/UdgamLabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Benchmarks</a><a href="https://www.udgamlabs.com/">The lab</a><a href="#main">Back to top ↑</a></nav><p class="footer-note">Static recorded examples. No inference, tracking or external assets on this page.</p></footer>
+  <footer class="site-footer shell"><div><strong>UDGAM LABS</strong><p>AI research from first principles</p></div><nav aria-label="Footer navigation"><a href="https://huggingface.co/udgamlabs/Udgam-384M-Chat">Model card</a><a href="https://github.com/udgamlabs/udgam-384m/blob/main/docs/BENCHMARKS.md">Benchmarks</a><a href="https://www.udgamlabs.com/">The lab</a><a href="#main">Back to top ↑</a></nav><p class="footer-note">Static recorded examples. No inference, tracking or external assets on this page.</p></footer>
 </body>
 </html>

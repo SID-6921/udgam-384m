@@ -1,10 +1,10 @@
-> A copy of the model card published at [huggingface.co/UdgamLabs/Udgam-384M-Chat](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) on 10 October 2026. The Hugging Face page is the current version. The GGUF and MLX cards add a short file list and, for MLX, the LM Studio note in the [integration guide](INTEGRATION.md#lm-studio).
+> A copy of the model card published at [huggingface.co/udgamlabs/Udgam-384M-Chat](https://huggingface.co/udgamlabs/Udgam-384M-Chat) on 10 October 2026. The Hugging Face page is the current version. The GGUF and MLX cards add a short file list and, for MLX, the LM Studio note in the [integration guide](INTEGRATION.md#lm-studio).
 
 # Udgam-384M-Chat
 
 **A 384M-parameter English model for on-device tool calling, trained from scratch by Udgam Labs.** It is a
 decoder-only transformer compatible with the Gemma 4 architecture (`Gemma4ForCausalLM`), so it runs unmodified in
-Ollama, LM Studio, llama.cpp, MLX and 🤗 transformers. Context: 4,096 tokens. The 4-bit GGUF is 238 MB. Built for four
+Ollama, LM Studio, llama.cpp, MLX and transformers. Context: 4,096 tokens. The 4-bit GGUF is 238 MB. Built for four
 jobs inside an app:
 
 1. **App actions**: turn a request into a function call. "wake me at 6:45, label it gym" →
@@ -18,7 +18,7 @@ jobs inside an app:
 **What it is not:** a knowledgeable general assistant (at 384M parameters it makes factual mistakes), or a
 safety-hardened open chatbot. Use it where *your app* decides which tools exist and confirms risky actions.
 
-**Model family:** [Udgam-384M-Base](https://huggingface.co/UdgamLabs/Udgam-384M-Base) (2,048 context) · [Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K) · [Udgam-384M-Chat](https://huggingface.co/UdgamLabs/Udgam-384M-Chat) · [GGUF](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) · [MLX](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX) · [MLX 4-bit](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-MLX-4bit) · **[Technical report](https://udgamlabs.com/reports/udgam-384m)**
+**Model family:** [Udgam-384M-Base](https://huggingface.co/udgamlabs/Udgam-384M-Base) (2,048 context) · [Udgam-384M-Base-4K](https://huggingface.co/udgamlabs/Udgam-384M-Base-4K) · [Udgam-384M-Chat](https://huggingface.co/udgamlabs/Udgam-384M-Chat) · [GGUF](https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF) · [MLX](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX) · [MLX 4-bit](https://huggingface.co/udgamlabs/Udgam-384M-Chat-MLX-4bit) · **[Technical report](https://udgamlabs.com/reports/udgam-384m)**
 
 | | |
 |---|---|
@@ -34,7 +34,7 @@ safety-hardened open chatbot. Use it where *your app* decides which tools exist 
 
 ### Ollama (recommended)
 
-Download a GGUF from the [GGUF repo](https://huggingface.co/UdgamLabs/Udgam-384M-Chat-GGUF) and create a model with its `Modelfile` (it uses
+Download a GGUF from the [GGUF repo](https://huggingface.co/udgamlabs/Udgam-384M-Chat-GGUF) and create a model with its `Modelfile` (it uses
 Ollama's native Gemma 4 renderer and parser, so tool calls and the optional thinking mode work as trained):
 
 ```
@@ -70,7 +70,7 @@ For this model thinking is optional and usually not better (see the tables).
 
 ### LM Studio
 
-1. Search for `UdgamLabs/Udgam-384M-Chat-GGUF` (or drop the `.gguf` into LM Studio's models folder) and pick `Q8_0`
+1. Search for `udgamlabs/Udgam-384M-Chat-GGUF` (or drop the `.gguf` into LM Studio's models folder) and pick `Q8_0`
    (default) or `Q4_K_M` (phones / low memory).
 2. The GGUF carries the Gemma 4 chat template, so the prompt format is set automatically. Set **Context Length 4096**,
    temperature 0.1, top-p 0.9, top-k 40, repeat penalty 1.1.
@@ -94,7 +94,7 @@ build d7a695e).
 
 ```bash
 pip install mlx-lm
-mlx_lm.generate --model UdgamLabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
+mlx_lm.generate --model udgamlabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me three tips for sleeping better." --max-tokens 200
 ```
 
 ### transformers
@@ -102,8 +102,8 @@ mlx_lm.generate --model UdgamLabs/Udgam-384M-Chat-MLX-4bit --prompt "Give me thr
 ```python
 # tested with transformers 5.18
 from transformers import AutoTokenizer, AutoModelForCausalLM
-tok = AutoTokenizer.from_pretrained("UdgamLabs/Udgam-384M-Chat")
-model = AutoModelForCausalLM.from_pretrained("UdgamLabs/Udgam-384M-Chat")
+tok = AutoTokenizer.from_pretrained("udgamlabs/Udgam-384M-Chat")
+model = AutoModelForCausalLM.from_pretrained("udgamlabs/Udgam-384M-Chat")
 tools = [{"type": "function", "function": {"name": "set_alarm", "description": "Set an alarm at a local time.",
           "parameters": {"type": "object", "properties": {"time": {"type": "string", "description": "HH:MM 24h"},
                          "label": {"type": "string"}}, "required": ["time"]}}}]
@@ -288,7 +288,7 @@ email → JSON with a given schema; suggesting shell commands for a person to re
 ## Training
 
 Pretrained from scratch on roughly 8B tokens of licensed public and synthetic text (base:
-[Udgam-384M-Base-4K](https://huggingface.co/UdgamLabs/Udgam-384M-Base-4K)), then post-trained with supervised fine-tuning for chat and tool use.
+[Udgam-384M-Base-4K](https://huggingface.co/udgamlabs/Udgam-384M-Base-4K)), then post-trained with supervised fine-tuning for chat and tool use.
 See the [technical report](https://udgamlabs.com/reports/udgam-384m) for an overview.
 
 ## Licence
@@ -302,7 +302,7 @@ Apache-2.0 (weights and tokenizer); see `LICENSE`. The chat template is the offi
   title        = {Udgam-384M: a small on-device tool-calling model trained from scratch},
   author       = {{Udgam Labs}},
   year         = {2026},
-  howpublished = {\url{https://huggingface.co/UdgamLabs/Udgam-384M-Chat}},
+  howpublished = {\url{https://huggingface.co/udgamlabs/Udgam-384M-Chat}},
   note         = {Technical report: \url{https://udgamlabs.com/reports/udgam-384m}}
 }
 ```
