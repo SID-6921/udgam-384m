@@ -6,7 +6,7 @@
 .examples-method{margin-top:18px;max-width:900px}
 .compare tbody td:last-child{font-weight:400;color:inherit}
 .compare tbody td:nth-child(2){color:var(--green)}
-.compare b{font-weight:700}
+.compare b{font-weight:500}
 .compare th:not(:first-child){white-space:nowrap}
 @media(max-width:760px){
   .example-controls{grid-template-columns:repeat(2,1fr)}
@@ -16,3 +16,6 @@
   .example-controls button:nth-last-child(-n+2){border-bottom:0}
   .compare{min-width:640px}
 }
+
+/* brand v2 */
+.wordmark svg{display:block;height:22px;width:auto;color:var(--ink)}.wordmark span{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em}.site-footer>div>strong{font-family:var(--mono);font-weight:500}h1,h2,.specimen-input,blockquote,.intent-block>strong,.benchmark-headline>strong,.metrics strong{font-family:var(--display);font-weight:500}
