@@ -14,6 +14,7 @@ import re
 
 QUOTE = '<|"|>'
 CALL_RE = re.compile(r"<\|tool_call>call:([A-Za-z0-9_.\-]+)(\{.*?\})<tool_call\|>", re.S)
+WORD_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_.\-]*")
 
 
 def _to_json(body: str) -> str:
@@ -27,7 +28,7 @@ def _to_json(body: str) -> str:
             out.append(json.dumps(body[i + len(QUOTE):end]))
             i = end + len(QUOTE)
             continue
-        m = re.match(r"[A-Za-z_][A-Za-z0-9_.\-]*", body[i:])
+        m = WORD_RE.match(body, i)
         if m:
             word = m.group(0)
             j = i + len(word)
