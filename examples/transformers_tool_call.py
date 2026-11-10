@@ -22,6 +22,7 @@ TOOLS = [{"type": "function", "function": {
     "parameters": {"type": "object", "properties": {
         "time": {"type": "string", "description": "HH:MM 24h"},
         "label": {"type": "string", "description": "Optional label"}}, "required": ["time"]}}}]
+ALLOWED = {t["function"]["name"] for t in TOOLS}
 
 
 def generate(tok, model, messages, max_new_tokens=256):
@@ -52,7 +53,10 @@ def main():
 
     call = calls[0]
     print(f"tool call: {call['name']}({json.dumps(call['arguments'])})")
-    result = {"ok": True, **call["arguments"]}  # your app runs the real tool here
+    if call["name"] not in ALLOWED:  # never trust the model's choice blindly
+        result = {"ok": False, "error": "tool not allowed"}
+    else:
+        result = {"ok": True, **call["arguments"]}  # your app runs the real tool here
     print(f"tool result: {json.dumps(result)}")
     messages.append({"role": "assistant", "tool_calls": [
         {"type": "function", "function": {"name": call["name"], "arguments": call["arguments"]}}]})
