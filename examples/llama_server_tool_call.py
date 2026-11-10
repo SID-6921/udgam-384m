@@ -32,6 +32,7 @@ TOOLS = [
          {"city": {"type": "string", "description": "City name"}}, ["city"]),
 ]
 ALLOWED = {t["function"]["name"] for t in TOOLS}
+NEEDS_CONFIRMATION = {"send_message"}  # anything that sends, pays, deletes or shares
 
 
 def run_tool(name, args):
@@ -57,6 +58,7 @@ def main():
     ap.add_argument("--base-url", default="http://localhost:8080/v1")
     ap.add_argument("--model", default="udgam")
     ap.add_argument("--prompt", default="What's the weather like in Leeds right now?")
+    ap.add_argument("--yes", action="store_true", help="auto-confirm actions that need confirmation (demo only)")
     a = ap.parse_args()
 
     messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": a.prompt}]
@@ -71,7 +73,12 @@ def main():
         name = call["function"]["name"]
         args = json.loads(call["function"]["arguments"] or "{}")  # arguments arrive as a JSON string here
         print(f"tool call: {name}({json.dumps(args)})")
-        result = run_tool(name, args) if name in ALLOWED else {"ok": False, "error": "tool not allowed"}
+        if name not in ALLOWED:  # never trust the model's choice blindly
+            result = {"ok": False, "error": "tool not allowed"}
+        elif name in NEEDS_CONFIRMATION and not a.yes and input("  run it? [y/N] ").strip().lower() != "y":
+            result = {"ok": False, "error": "user cancelled"}
+        else:
+            result = run_tool(name, args)
         print(f"tool result: {json.dumps(result)}")
         messages.append({"role": "tool", "tool_call_id": call.get("id", ""), "content": json.dumps(result)})
 
